@@ -61,6 +61,7 @@ int main() {
 	printf("Unesite prezime osobe koju zelite izbrisati iz liste: ");
 	scanf(" %s", o.prezime);
 	Brisi(o, &Head);
+	printf("Vase osobe su:\n");
 	Ispis(Head.Next);
 	return exitSuccess;
 }
@@ -96,7 +97,7 @@ void TraziPoPrez(Osoba a, Pozicija p) {
 		p = p->Next;
 	}
 	if (p == NULL) {
-		printf("Osoba s tim prezimenom nije pronadena!");
+		printf("Osoba s tim prezimenom nije pronadena!\n");
 	}
 	else {
 		printf("Osoba pronadena: ");
@@ -105,15 +106,23 @@ void TraziPoPrez(Osoba a, Pozicija p) {
 }
 
 Pozicija TraziPrethodnika(Osoba a, Pozicija p) {
-	while (p != NULL && strcmp(p->Next->o.prezime, a.prezime)) //Dok ne dodje do kraja ili će stati kad nadjemo to trazeno prezime
+	Pozicija prev;
+	prev = p;
+	p = p->Next;
+	while (p != NULL && strcmp(p->o.prezime, a.prezime)) { //Dok ne dodje do kraja ili će stati kad nadjemo to trazeno prezime
+		prev = prev->Next;
 		p = p->Next;
-	return p;
+	}
+	if (p == NULL)
+		return NULL;
+	else
+		return prev;
 }
 
 void Brisi(Osoba a, Pozicija p) {
 	p = TraziPrethodnika(a, p);
 	if (p == NULL)
-		printf("Nema osobe s tim prezimenom");
+		printf("Nema osobe s tim prezimenom\n");
 	else
 		p->Next = p->Next->Next; //Pokazivac prethodnika pokazuje na sljedbenika (preskocen 1 element liste)
 }
