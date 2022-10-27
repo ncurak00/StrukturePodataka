@@ -3,14 +3,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_LINE (128)
-#define exitSuccess (0)
+#define MAKSIMALAN_BROJ_LINIJA (128)
+#define ZAVRSEN_KOD (0)
+#define NEUSPJELA_DINAMICKA_ALOKACIJA (-1)
 
 typedef struct Osoba* Pozicija;
 
 typedef struct Osoba {
-	char ime[MAX_LINE];
-	char prezime[MAX_LINE];
+	char ime[MAKSIMALAN_BROJ_LINIJA];
+	char prezime[MAKSIMALAN_BROJ_LINIJA];
 	int godiste;
 	Pozicija Next; // Pozicija pokazuje na sljedeci cvor u nizu
 }Osoba;
@@ -28,8 +29,8 @@ int main() {
 	Head.Next = NULL;
 	int n = 0; // Brojac osoba
 	int i = 0, godiste = 0;
-	char ime[MAX_LINE] = { 0 };
-	char prezime[MAX_LINE] = { 0 };
+	char ime[MAKSIMALAN_BROJ_LINIJA] = { 0 };
+	char prezime[MAKSIMALAN_BROJ_LINIJA] = { 0 };
 	printf("Koliko osoba zelite unijeti: ");
 	scanf_s(" %d", &n);
 	for (i = 0; i < n; i++) {
@@ -59,12 +60,19 @@ int main() {
 	Brisi(o, &Head);
 	printf("Vase osobe su:\n");
 	Ispis(Head.Next);
-	return exitSuccess;
+	return ZAVRSEN_KOD;
 }
 
 void UnosNaPocetak(Osoba a, Pozicija p) {
 	Pozicija q;
 	q = (Pozicija)malloc(sizeof(Osoba));
+	if (q == NULL) {
+		printf("Memorija nije dinamicki alocirana!\n");
+		return NEUSPJELA_DINAMICKA_ALOKACIJA;
+	}
+	else {
+		printf("Memorija alocirana!\n");
+	}
 	*q = a;
 	q->Next = p->Next; // Neka Q pokazuje na onoga koga je pokaziva P prije
 	p->Next = q; // Neka P pokazuje na Q
@@ -76,6 +84,13 @@ void UnosNaKraj(Osoba a, Pozicija p) {
 		p = p->Next;
 	}
 	q = (Pozicija)malloc(sizeof(Osoba));
+	if (q == NULL) {
+		printf("Memorija nije dinamicki alocirana!\n");
+		return NEUSPJELA_DINAMICKA_ALOKACIJA;
+	}
+	else {
+		printf("Memorija alocirana!\n");
+	}
 	*q = a;
 	p->Next = q;
 	q->Next = NULL;
