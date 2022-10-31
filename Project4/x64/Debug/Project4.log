@@ -1,0 +1,3 @@
+﻿  Source.c
+C:\Users\nikol\Desktop\Project4\Source.c(52,11): warning C4013: 'toupper' undefined; assuming extern returning int
+  Project4.vcxproj -> C:\Users\nikol\Desktop\Project4\x64\Debug\Project4.exe
