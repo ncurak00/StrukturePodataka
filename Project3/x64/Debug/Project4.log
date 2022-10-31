@@ -1,0 +1,3 @@
+﻿  Source.c
+C:\Users\nikol\Desktop\Mozes minjat project2\Source.c(296,55): warning C4047: '!=': 'char *' differs in levels of indirection from 'int'
+  Project4.vcxproj -> C:\Users\nikol\Desktop\Mozes minjat project2\x64\Debug\Project4.exe
