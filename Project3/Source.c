@@ -294,7 +294,7 @@ int IspisIzDatoteke(char* imedatoteke) {
 		printf("Greska u otvaranju datoteke!\n");
 		return NEPRONADEN_ELEMENT;
 	}
-	while (fgets(niz, MAKSIMALAN_BROJ_ZNAKOVA, fp) != EOF) {
+	while (fgets(niz, MAKSIMALAN_BROJ_ZNAKOVA, fp) != NULL) {
 		printf(" %s", niz);
 	}
 	fclose(fp);
