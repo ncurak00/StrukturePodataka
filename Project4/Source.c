@@ -1,339 +1,182 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include<stdlib.h>
+#include<string.h>
 
-#define MAKSIMALAN_BROJ_ZNAKOVA (128)
-#define ZAVRSEN_KOD (EXIT_SUCCESS)
-#define NEUSPJELA_DINAMICKA_ALOKACIJA (-1)
-#define NEPRONADEN_ELEMENT (-1)
+#define MAX_LINE (128)
+#define FILE_DIDNT_OPEN_ERROR (-1)
+#define EMPTY_LIST (-1)
 
-typedef struct Osoba* Pozicija;
+typedef struct polinom* pozicija;
 
-typedef struct Osoba {
-	char ime[MAKSIMALAN_BROJ_ZNAKOVA];
-	char prezime[MAKSIMALAN_BROJ_ZNAKOVA];
-	int godiste;
-	Pozicija Next; // Pozicija pokazuje na sljedeci cvor u nizu
-}Osoba;
+typedef struct polinom {
+	int koef; //koeficijent
+	int pot; //potencija
+	pozicija next;
+}polinom;
 
-int UnosNaPocetak(Osoba, Pozicija);
-void Ispis(Pozicija);
-int UnosNaKraj(Osoba, Pozicija);
-Pozicija TraziPoPrez(Osoba, Pozicija);
-void Brisi(Osoba, Pozicija);
-Pozicija TraziPrethodnika(Osoba, Pozicija);
-int UnosIza(Osoba , Osoba , Pozicija );
-int UnosIspred(Osoba, Osoba, Pozicija);
-int SortirajListu(Pozicija);
-int IspisUDatoteku(Pozicija, char*);
-int IspisIzDatoteke(char*);
+int sortiraniUnos(pozicija, pozicija);
+int sortiraniUnosIzDatoteke(char*, pozicija[], int);
+int ispisPolinoma(pozicija);
+int zbrajanje(pozicija[], int, pozicija);
+int umnozak(pozicija, pozicija, pozicija);
+
 
 int main() {
-	Osoba o; 
-	Osoba o_nova; // Nova osoba
-	Osoba Head;
-	Head.Next = NULL;
-	Pozicija p;
-	int n = 0; // Brojac osoba
 	int i = 0;
-	int godiste = 0;
-	char ime[MAKSIMALAN_BROJ_ZNAKOVA] = { 0 };
-	char prezime[MAKSIMALAN_BROJ_ZNAKOVA] = { 0 };
-	char imedatoteke[MAKSIMALAN_BROJ_ZNAKOVA] = { 0 };
-	char izbor;
+	char buffer[MAX_LINE] = {0};
+	pozicija p[MAX_LINE] = {0};
+	int br = 0;
+	polinom HeadZbroj = {
+		.koef = 0,
+		.pot = 0,
+		.next = NULL
+	};
 
-	while (1) {
-		printf("Unesi A - Unos na pocetak\nUnesi B - Unos na kraj\nUnesi C - Trazenje po prezimenu\n");
-		printf("Unesi D - Unos iza elementa\nUnesi E - Unos ispred elementa\nUnesi F - Sortiranje liste\nUnesi G - Ispisivanje u datoteku\n");
-		printf("Unesi H - Ispisivanje iz datoteke\nUnesi I - Ispis\nUnesi J - Brisanje\nUnesi X - Izlaz iz programa\n");
-		printf("\nUnesite naredbu: ");
-		scanf(" %c", &izbor);
-		izbor = toupper(izbor);
-		if (izbor == 'A') {
-			printf("Koliko osoba zelite unijeti: ");
-			scanf(" %d", &n);
-			for (i = 0; i < n; i++) {
-				printf("Unesite ime osobe: ");
-				scanf(" %s", o.ime);
-				printf("Unesite prezime osobe: ");
-				scanf(" %s", o.prezime);
-				printf("Unesite godiste osobe: ");
-				scanf(" %d", &o.godiste);
-				UnosNaPocetak(o, &Head);
-			}
-			Ispis(Head.Next);
-		}
-		else if (izbor == 'B') {
-			printf("Unesite podatke osobe koja dolazi na kraj liste!\n");
-			printf("Unesite ime osobe: ");
-			scanf(" %s", o.ime);
-			printf("Unesite prezime osobe: ");
-			scanf(" %s", o.prezime);
-			printf("Unesite godiste osobe: ");
-			scanf(" %d", &o.godiste);
-			UnosNaKraj(o, &Head);
-			Ispis(Head.Next);
-		}
-		else if (izbor == 'C') {
-			printf("Unesite trazeno prezime: ");
-			scanf(" %s", o.prezime);
-			p = TraziPoPrez(o, &Head);
-			if (p != NULL) {
-				printf("Osoba pronadena: ");
-				printf(" %s\t %s\t %d \n", p->ime, p->prezime, p->godiste);
-			}
-			else {
-				printf("Osoba s tim prezimenom nije pronadena!\n");
-			}
-		}
-		else if (izbor == 'D') {
-			printf("Unesi prezime osobe iza koje zelis dodati novu osobu: ");
-			scanf(" %s", o.prezime);
-			p = TraziPoPrez(o, &Head);
-			if (p != NULL) {
-				printf("Unesite ime nove osobe: ");
-				scanf(" %s", o_nova.ime);
-				printf("Unesite prezime nove osobe: ");
-				scanf(" %s", o_nova.prezime);
-				printf("Unesite godiste nove osobe: ");
-				scanf(" %d", &o_nova.godiste);
-				UnosIza(o_nova, o, Head.Next);
-				printf("Vase osobe su:\n");
-				Ispis(Head.Next);
-			}
-			else {
-				printf("Osoba s tim prezimenom nije pronadena!\n");
-			}
-		}
-		else if (izbor == 'E') {
-			printf("Unesi prezime osobe ispred koje zelis dodati novu osobu: ");
-			scanf(" %s", o.prezime);
-			p = TraziPoPrez(o, &Head);
-			if (p != NULL) {
-				printf("Unesite ime nove osobe: ");
-				scanf(" %s", o_nova.ime);
-				printf("Unesite prezime nove osobe: ");
-				scanf(" %s", o_nova.prezime);
-				printf("Unesite godiste nove osobe: ");
-				scanf(" %d", &o_nova.godiste);
-				UnosIspred(o_nova, o, Head.Next);
-				printf("Vase osobe su:\n");
-				Ispis(Head.Next);
-			}
-			else {
-				printf("Osoba s tim prezimenom nije pronadena!\n");
-			}
-		}
-		else if (izbor == 'F') {
-			SortirajListu(&Head);
-			printf("Sortirana lista je:\n");
-			Ispis(Head.Next);
-		}
-		else if (izbor == 'G') {
-			printf("Unesite ime datoteke: ");
-			scanf(" %s", imedatoteke);
-			IspisUDatoteku(Head.Next, imedatoteke);
-		}
-		else if (izbor == 'H') {
-			IspisIzDatoteke(imedatoteke);
-		}
-		else if (izbor == 'I') {
-			Ispis(Head.Next);
-		}
-		else if (izbor == 'J') {
-			printf("Unesite prezime osobe koju zelite izbrisati iz liste: ");
-			scanf(" %s", o.prezime);
-			Brisi(o, &Head);
-			printf("Vase osobe su:\n");
-			Ispis(Head.Next);
-		}
-		else if (izbor == 'X') {
-			break;
-		}
-		else
-		printf("Nisi unio ispravno slovo!\n");
-	}
-	
-	return ZAVRSEN_KOD;
-}
+	polinom HeadProdukt = {
+		.koef = 0,
+		.pot = 0,
+		.next = NULL
+	};
 
-int UnosNaPocetak(Osoba a, Pozicija p){
-	Pozicija q;
-	q = (Pozicija)malloc(sizeof(Osoba));
-	if (q == NULL) {
-		printf("Memorija nije dinamicki alocirana!\n");
-		return NEUSPJELA_DINAMICKA_ALOKACIJA;
-	}
-	else {
-		printf("Memorija alocirana!\n");
-	}
-	strcpy(q->ime, a.ime);
-	strcpy(q->prezime, a.prezime);
-	q->godiste = a.godiste;
-	q->Next = p->Next; // Neka Q pokazuje na onoga koga je pokaziva P prije
-	p->Next = q; // Neka P pokazuje na Q
-
-	return ZAVRSEN_KOD;
-}
-
-int UnosNaKraj(Osoba a, Pozicija p) {
-	Pozicija q;
-	while (p->Next != NULL) {
-		p = p->Next;
-	}
-	q = (Pozicija)malloc(sizeof(Osoba));
-	if (q == NULL) {
-		printf("Memorija nije dinamicki alocirana!\n");
-		return NEUSPJELA_DINAMICKA_ALOKACIJA;
-	}
-	else {
-		printf("Memorija alocirana!\n");
-	}
-	strcpy(q->ime, a.ime);
-	strcpy(q->prezime, a.prezime);
-	q->godiste = a.godiste;
-	p->Next = q;
-	q->Next = NULL;
-
-	return ZAVRSEN_KOD;
-}
-
-void Ispis(Pozicija p) {
-	while (p != NULL) { // Vrti sve dok Pozicija ne bude NULL
-		printf(" %s\t %s \t %d \n", p->ime, p->prezime, p->godiste);
-		p = p->Next; // Neka p bude adresa sljedeceg
-	}
-}
-
-Pozicija TraziPoPrez(Osoba a, Pozicija p) {
-	while (p != NULL && strcmp(p->prezime, a.prezime)) { //Dok ne dodje do kraja ili će stati kad nadjemo to trazeno prezime
-		p = p->Next;
-	}
-	return p;
-}
-
-Pozicija TraziPrethodnika(Osoba a, Pozicija p) {
-	Pozicija prev;
-	prev = p;
-	p = p->Next;
-	while (p != NULL && strcmp(p->prezime, a.prezime)) { //Dok ne dodje do kraja ili će stati kad nadjemo to trazeno prezime
-		prev = prev->Next;
-		p = p->Next;
-	}
-	if (p == NULL)
-		return NULL;
-	else
-		return prev;
-}
-
-void Brisi(Osoba a, Pozicija p) {
-	p = TraziPrethodnika(a, p);
-	if (p == NULL)
-		printf("Nema osobe s tim prezimenom\n");
-	else
-		p->Next = p->Next->Next; //Pokazivac prethodnika pokazuje na sljedbenika (preskocen 1 element liste)
-}
-
-int UnosIza(Osoba a, Osoba b, Pozicija p) {
-	p = TraziPoPrez(b, p);
-	Pozicija q;
-	if (p == NULL) {
-		printf("Nema osobe s tim prezimenom\n");
-		return NEPRONADEN_ELEMENT;
-	}
-	q = (Pozicija)malloc(sizeof(Osoba));
-	if (q == NULL) {
-		printf("Memorija nije dinamicki alocirana!\n");
-		return NEUSPJELA_DINAMICKA_ALOKACIJA;
-	}
-	else {
-		printf("Memorija alocirana!\n");
-	}
-	strcpy(q->ime, a.ime);
-	strcpy(q->prezime, a.prezime);
-	q->godiste = a.godiste;
-	q->Next = p->Next;
-	p->Next = q;
-
-	return ZAVRSEN_KOD;
-}
-
-int UnosIspred(Osoba a, Osoba b, Pozicija p) {
-	p = TraziPrethodnika(b, p);
-	Pozicija q;
-	q = (Pozicija)malloc(sizeof(Osoba));
-	if (q == NULL) {
-		printf("Memorija nije dinamicki alocirana!\n");
-		return NEUSPJELA_DINAMICKA_ALOKACIJA;
-	}
-	else {
-		printf("Memorija alocirana!\n");
-	}
-	strcpy(q->ime, a.ime);
-	strcpy(q->prezime, a.prezime);
-	q->godiste = a.godiste;
-	q->Next = p->Next;
-	p->Next = q;
-
-	return ZAVRSEN_KOD;
-}
-
-int SortirajListu(Pozicija p) {  
-	Pozicija q = NULL;
-	Pozicija prev_q = NULL;
-	Pozicija temp = NULL;
-	Pozicija end = NULL;
-	while (p->Next != end) {
-		prev_q = p;
-		q = p->Next;
-		while (q->Next != end) {
-			if (strcmp(q->prezime, q->Next->prezime) > 0) {
-				temp = q->Next;
-				prev_q->Next = temp;
-				q->Next = temp->Next;
-				temp->Next = q;
-
-				q = temp;
-			}
-			prev_q = q;
-			q = q->Next;
-		}
-		end = q;
-	}
-	return ZAVRSEN_KOD;
-}
-
-int IspisUDatoteku(Pozicija p, char* imedatoteke) {
 	FILE* fp = NULL;
-	fp = fopen(imedatoteke, "w");
-	if (fp == NULL)
-	{
+	fp = fopen("polinomi.txt", "r");
+	if (fp == NULL){
 		printf("Greska u otvaranju datoteke!\n");
-		return NEPRONADEN_ELEMENT;
+		return FILE_DIDNT_OPEN_ERROR;
 	}
-	while (p != NULL) {
-		fprintf(fp, "%s\t %s\t %10d\n", p->ime, p->prezime, p->godiste);
-		p = p->Next;
+	while (!feof(fp)){
+		fgets(buffer, MAX_LINE, fp);
+		if (strcmp("\n", buffer) != 0) {
+			br++;
+		}
 	}
-	fclose(fp);
-
-	return ZAVRSEN_KOD;
+	sortiraniUnosIzDatoteke("polinomi.txt", p, br);
+	printf("a");
+	for(i=0; i<br; i++)
+	ispisPolinoma(p[i]);
+	return EXIT_SUCCESS;
 }
 
-int IspisIzDatoteke(char* imedatoteke) {
-	char niz[MAKSIMALAN_BROJ_ZNAKOVA];
+int sortiraniUnosIzDatoteke(char* imedatoteke, pozicija p[], int br) {
+	int i = 0;
+	int n = 0; // brojac ucitanih znakova koristeci sscanf
+	int a = 0; // broj indeksa u nizu p(headova)
+	int b = 0; // broj pomaka kod ucitavanja polinoma u sscanfu
+	int check = 0;
+	char buffer[MAX_LINE] = {0};
+	pozicija temp=NULL;
+	temp = (pozicija)malloc(sizeof(polinom));
+	if (temp == NULL)
+	{
+		printf("Neuspjesna alokacija memorije!\n");
+		return 1;
+	}
 	FILE* fp = NULL;
 	fp = fopen(imedatoteke, "r");
-	if (fp == NULL)
-	{
+	if (fp == NULL) {
 		printf("Greska u otvaranju datoteke!\n");
-		return NEPRONADEN_ELEMENT;
+		return FILE_DIDNT_OPEN_ERROR;
 	}
-	while (fgets(niz, MAKSIMALAN_BROJ_ZNAKOVA, fp) != NULL) {
-		printf(" %s", niz);
+	for (i = 0; i < br; i++) {
+		fgets(buffer, MAX_LINE, fp);
+		if (strcmp("\n", buffer) != 0) 
+		{
+			check=sscanf(buffer, "%d %d %n", temp->koef, temp->pot, &n);
+			sortiraniUnos(temp, p[a]);
+			b = b + n;
+			
+			while (check == 2) 
+			{
+				check = sscanf(buffer+b, "%d %d %n", temp->koef, temp->pot, &n);
+				if(check==2)
+				sortiraniUnos(temp, p[a]);
+				b = b + n;
+			}
+		}
+		b = 0;
+		a++;
 	}
-	fclose(fp);
+	return EXIT_SUCCESS;
+}
 
-	return ZAVRSEN_KOD;
+int sortiraniUnos(pozicija temp, pozicija p) {
+	while (p->next != NULL && temp->pot > p->next->pot) {
+		p = p->next;
+	}
+	temp->next = p->next;
+	p->next = temp;
+	return EXIT_SUCCESS;
+}
+
+int ispisPolinoma(pozicija p) {
+	while (p != NULL) {
+		if (p->koef == 1)
+			printf("x");
+		else
+			printf("%dx", p->koef);
+		if (p->pot != 1)
+			printf("^%d", p->pot);
+		if(p->next!=NULL)
+		printf(" + ");
+		p = p->next;
+	}
+	return EXIT_SUCCESS;
+}
+
+int zbrajanje(pozicija p[], int br, pozicija q) {
+	int i = 0;
+	int j = 0;
+	int x = 0;
+	pozicija s=NULL;
+	pozicija d=NULL;
+	d = (pozicija)malloc(sizeof(polinom));
+	if (d == NULL)
+	{
+		printf("Neuspjesna alokacija memorije!\n");
+		return 1;
+	}
+	s = (pozicija)malloc(sizeof(polinom));
+	if (s == NULL)
+	{
+		printf("Neuspjesna alokacija memorije!\n");
+		return 1;
+	}
+	for (i = 0; i < 10; i++) {
+		x = 0;
+		for (j = 0; j < br; j++) {
+			s = p[j];
+			while (s->next != NULL) {
+				if (s->pot == i)
+					x = x + s->koef;
+				s = s->next;
+			}
+		}
+		if (x != 0) {
+			d->koef = x;
+			d->pot = i;
+			sortiraniUnos(d, q);
+		}
+	}
+}
+
+int umnozak(pozicija p, pozicija q, pozicija r) {
+	int a=0;
+	int b=0;
+	pozicija e = NULL;
+	e = (pozicija)malloc(sizeof(polinom));
+	if (e == NULL)
+	{
+		printf("Neuspjesna alokacija memorije!\n");
+		return 1;
+	}
+	while (p->next != NULL) {
+		while (q->next != NULL) {
+			a = p->next->koef * q->next->koef;
+			b = p->next->pot + q->next->pot;
+			e->koef = a;
+			e->pot = b;
+			sortiraniUnos(e, q);
+		}
+	}
 }

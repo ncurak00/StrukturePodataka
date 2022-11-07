@@ -1,3 +1,8 @@
 ﻿  Source.c
-C:\Users\nikol\Desktop\Project4\Source.c(52,11): warning C4013: 'toupper' undefined; assuming extern returning int
-  Project4.vcxproj -> C:\Users\nikol\Desktop\Project4\x64\Debug\Project4.exe
+C:\Users\nikol\Desktop\StrukturePodataka\Project4\Source.c(85,25): warning C4477: 'sscanf' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'int'
+C:\Users\nikol\Desktop\StrukturePodataka\Project4\Source.c(85,25): warning C4477: 'sscanf' : format string '%d' requires an argument of type 'int *', but variadic argument 2 has type 'int'
+C:\Users\nikol\Desktop\StrukturePodataka\Project4\Source.c(91,30): warning C4477: 'sscanf' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'int'
+C:\Users\nikol\Desktop\StrukturePodataka\Project4\Source.c(91,30): warning C4477: 'sscanf' : format string '%d' requires an argument of type 'int *', but variadic argument 2 has type 'int'
+C:\Users\nikol\Desktop\StrukturePodataka\Project4\Source.c(161): warning C4715: 'zbrajanje': not all control paths return a value
+C:\Users\nikol\Desktop\StrukturePodataka\Project4\Source.c(182): warning C4715: 'umnozak': not all control paths return a value
+  Project4.vcxproj -> C:\Users\nikol\Desktop\StrukturePodataka\Project4\x64\Debug\Project4.exe
