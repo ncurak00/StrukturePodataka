@@ -1,0 +1,3 @@
+﻿  Source.c
+C:\Users\Korisnik\Desktop\Project5\Project5\Source.c(55,9): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+  Project5.vcxproj -> C:\Users\Korisnik\Desktop\Project5\x64\Debug\Project5.exe
