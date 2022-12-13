@@ -1,2 +1,4 @@
 ﻿  Source.c
-  Project4.vcxproj -> C:\Users\nikol\Desktop\StrukturePodataka\Project4\x64\Debug\Project4.exe
+C:\Users\nikol\Desktop\StrukturePodataka\Project2\Source.c(71,39): warning C4098: 'UnosNaPocetak': 'void' function returning a value
+C:\Users\nikol\Desktop\StrukturePodataka\Project2\Source.c(89,39): warning C4098: 'UnosNaKraj': 'void' function returning a value
+  Project4.vcxproj -> C:\Users\nikol\Desktop\StrukturePodataka\Project2\x64\Debug\Project4.exe
