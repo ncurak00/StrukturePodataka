@@ -21,9 +21,9 @@ typedef struct stog {
 	pozicija_stoga next;
 }stog;
 
-pozicija Push(pozicija_stoga, pozicija);
+pozicija Push(pozicija_stoga, pozicija,pozicija);
 pozicija Pop(pozicija_stoga);
-int DodajNovog(pozicija, pozicija);
+pozicija DodajNovog(pozicija, pozicija);
 int IspisDirektorija(pozicija, int);
 int MaliIspisDirektorija(pozicija, int);
 int OtidiUDirektorij(pozicija_stoga, pozicija, char*);
@@ -37,15 +37,17 @@ int main() {
 	head.next = NULL;
 	head.dijete = NULL;
 	strcpy(root->ime, "C:");
-	
-	pozicija trenutni = Push(&head, &root);
+
+	pozicija trenutni = root;
 	strcpy(trenutni->ime, root->ime);
+	trenutni = Push(&head, &root,NULL);
 	int cmd = 0;
 	do {
 		printf("\nOdaberite naredbu: \n");
 		printf("Unesi 1 - md\nUnesi 2 - cd dir\nUnesi 3 - cd..\n");
 		printf("Unesi 4 - dir\nUnesi 5 - izlaz\n");
 		scanf("%d", &cmd);
+
 		switch (cmd)
 		{
 		case 1:
@@ -61,12 +63,12 @@ int main() {
 				printf("Trenutni direktorij je prazan! \n");
 				break;
 			}
-			printf("Ovaj direktorij sadrzi sljedeæe direktorije: \n");
-			MaliIspisDirektorija(trenutni->dijete,0);
+			printf("Ovaj direktorij sadrzi sljedece direktorije: \n");
+			MaliIspisDirektorija(trenutni->dijete, 0);
 			printf("Unesite ime direktorija u koji zelite uci: ");
 			char ime[MAX_LINE];
 			scanf(" %s", ime);
-			OtidiUDirektorij(&head,trenutni->dijete, ime);
+			OtidiUDirektorij(&head, trenutni->dijete, ime);
 			break;
 		case 3:
 			if (!strcmp(trenutni->ime, "C:"))
@@ -95,9 +97,17 @@ int main() {
 	return 0;
 }
 
-pozicija Push(pozicija_stoga head, pozicija novi) {
-	novi->dijete = head->next;
+pozicija Push(pozicija_stoga head, pozicija noviCvor,pozicija dijete) {
+	pozicija_stoga novi = (pozicija_stoga)malloc(sizeof(stog));
+	if (novi == NULL) {
+		printf("Memorija nije dinamicki alocirana!\n");
+		return NULL;
+	}
+	novi = noviCvor;
+	novi->dijete = dijete;
+	novi->next = head->next;
 	head->next = novi;
+	strcpy(novi->ime, noviCvor->ime);
 	return novi;
 }
 
@@ -108,7 +118,7 @@ pozicija Pop(pozicija_stoga p) {
 	return  p;
 
 }
-int DodajNovog(char* ime, pozicija trenutni)//abecedno 
+pozicija DodajNovog(char* ime, pozicija trenutni)//abecedno //zaboravia si dodat u root
 {
 	pozicija novi = (pozicija)malloc(sizeof(cvor));
 	if (novi == NULL) {
@@ -136,9 +146,9 @@ int DodajNovog(char* ime, pozicija trenutni)//abecedno
 	novi->brat = p->brat;
 	p->brat = novi;
 	p->dijete = NULL;
-	
 
-	return EXIT_SUCCES;
+
+	return novi;
 }
 int IspisDirektorija(pozicija p, int uvlaka) {
 	uvlaka += 2;
@@ -165,18 +175,18 @@ int MaliIspisDirektorija(pozicija p, int uvlaka) {
 	return EXIT_SUCCESS;
 }
 int OtidiUDirektorij(pozicija_stoga head, pozicija trenutni, char* ime) {
-	pozicija p = trenutni->dijete;
-	while (p) 
+	pozicija p = trenutni;
+	while (p)
 	{
 		if (!strcmp(p->ime, ime))
 		{
-			trenutni=Push(head, p);
+			trenutni = Push(head, p,p->dijete);
 			strcpy(trenutni->ime, ime);
 			break;
 		}
-		p = p ->brat;
+		p = p->brat;
 	}
 	printf("Nije pronaden direktorij s tim imeneom! \n");
 	return EXIT_SUCCES;
-		
+
 }
