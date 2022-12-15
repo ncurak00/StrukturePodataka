@@ -37,7 +37,7 @@ int main() {
 	head.next = NULL;
 	head.dijete = NULL;
 	strcpy(root->ime, "C:");
-
+	
 	pozicija trenutni = Push(&head, &root);
 	strcpy(trenutni->ime, root->ime);
 	int cmd = 0;
@@ -108,7 +108,7 @@ pozicija Pop(pozicija_stoga p) {
 	return  p;
 
 }
-int DodajNovog(char* ime, pozicija trenutni)//abecedno
+int DodajNovog(char* ime, pozicija trenutni)//abecedno 
 {
 	pozicija novi = (pozicija)malloc(sizeof(cvor));
 	if (novi == NULL) {
@@ -136,7 +136,7 @@ int DodajNovog(char* ime, pozicija trenutni)//abecedno
 	novi->brat = p->brat;
 	p->brat = novi;
 	p->dijete = NULL;
-
+	
 
 	return EXIT_SUCCES;
 }
@@ -166,7 +166,7 @@ int MaliIspisDirektorija(pozicija p, int uvlaka) {
 }
 int OtidiUDirektorij(pozicija_stoga head, pozicija trenutni, char* ime) {
 	pozicija p = trenutni->dijete;
-	while (p)
+	while (p) 
 	{
 		if (!strcmp(p->ime, ime))
 		{
@@ -178,5 +178,5 @@ int OtidiUDirektorij(pozicija_stoga head, pozicija trenutni, char* ime) {
 	}
 	printf("Nije pronaden direktorij s tim imeneom! \n");
 	return EXIT_SUCCES;
-
+		
 }
