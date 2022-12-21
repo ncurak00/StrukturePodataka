@@ -35,7 +35,7 @@ int main() {
 		scanf(" %d", &izbor);
 		switch (izbor) {
 		case 1:
-			printf("\nUnesite novi element:");
+			printf("Unesite novi element:");
 			int novi_broj;
 			scanf(" %d", &novi_broj);
 			pozicija novi = (pozicija)malloc(sizeof(cvor));
@@ -45,31 +45,32 @@ int main() {
 			root = Unos(root, novi);
 			break;
 		case 2:
+			printf("Preorder ispis je: \n");
 			IspisPreorder(root);
 			break;
 		case 3:
+			printf("Inorder ispis je: \n");
 			IspisInorder(root);
 			break;
 		case 4:
+			printf("Postorder ispis je: \n");
 			IspisPostorder(root);
 			break;
 		case 5:
-			printf("Unesite element koji zelite izbrisati\n");
+			printf("Unesite element koji zelite izbrisati: ");
 			int brisi_broj;
 			scanf(" %d", &brisi_broj);
 			root = Brisi(root, brisi_broj);
 			break;
 		case 6:
-			printf("Unesite element koji zelite pronaci\n");
+			printf("Unesite element koji zelite pronaci: ");
 			int trazeni_broj; pozicija temp;
 			scanf(" %d", &trazeni_broj);
 			temp = Trazi(root, trazeni_broj);
-			if (temp) {
+			if (temp)
 				printf("Element %d nalazi se u stablu na adresi %d\n", temp->broj, temp);
-			}
-			else {
-				printf("Element koji ste unijeli nepostoji u stablu");
-			}
+			else
+				printf("Element koji ste unijeli ne postoji u stablu.");
 			break;
 		case 7:
 			break;
@@ -126,8 +127,10 @@ void IspisPostorder(pozicija p){
 }
 
 pozicija Brisi(pozicija p, int br){
-	if (p == NULL)
+	if (p == NULL) {
+		printf("Element koji zelite izbrisati ne postoji u stablu.");
 		return NULL;
+	}
 	if (p->broj < br)
 		p->d = Brisi(p->d, br);
 	else if (p->broj > br)
