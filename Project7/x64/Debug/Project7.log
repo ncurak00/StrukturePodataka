@@ -1,0 +1,12 @@
+﻿  Source.c
+C:\Users\nikol\Desktop\StrukturePodataka\Project7\Source.c(41,39): warning C4047: 'function': 'pozicija' differs in levels of indirection from 'pozicija *'
+C:\Users\nikol\Desktop\StrukturePodataka\Project7\Source.c(41,34): warning C4024: 'Push': different types for formal and actual parameter 2
+C:\Users\nikol\Desktop\StrukturePodataka\Project7\Source.c(55,24): warning C4133: 'function': incompatible types - from 'char [50]' to 'pozicija'
+C:\Users\nikol\Desktop\StrukturePodataka\Project7\Source.c(99,27): warning C4133: '=': incompatible types - from 'pozicija_stoga' to 'pozicija'
+C:\Users\nikol\Desktop\StrukturePodataka\Project7\Source.c(100,19): warning C4133: '=': incompatible types - from 'pozicija' to 'pozicija_stoga'
+C:\Users\nikol\Desktop\StrukturePodataka\Project7\Source.c(108,11): warning C4133: 'return': incompatible types - from 'pozicija_stoga' to 'pozicija'
+C:\Users\nikol\Desktop\StrukturePodataka\Project7\Source.c(111,22): warning C4028: formal parameter 1 different from declaration
+C:\Users\nikol\Desktop\StrukturePodataka\Project7\Source.c(116,14): warning C4047: 'return': 'int' differs in levels of indirection from 'void *'
+C:\Users\nikol\Desktop\StrukturePodataka\Project7\Source.c(127,14): warning C4133: 'function': incompatible types - from 'pozicija' to 'const char *'
+C:\Users\nikol\Desktop\StrukturePodataka\Project7\Source.c(127,20): warning C4133: 'function': incompatible types - from 'pozicija' to 'const char *'
+  Project7.vcxproj -> C:\Users\nikol\Desktop\StrukturePodataka\Project7\x64\Debug\Project7.exe
