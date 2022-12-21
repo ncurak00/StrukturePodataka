@@ -1,9 +1,9 @@
 ﻿  zadatak.c
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(52,1): warning C4005: 'EXIT_SUCCESS': macro redefinition
 C:\Users\nikol\Desktop\StrukturePodataka\Project6\zadatak.c(2): message : see previous definition of 'EXIT_SUCCESS'
-C:\Users\nikol\Desktop\StrukturePodataka\Project6\zadatak.c(68,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'pozicija'
-C:\Users\nikol\Desktop\StrukturePodataka\Project6\zadatak.c(68,12): warning C4313: 'printf': '%d' in format string conflicts with argument 2 of type 'pozicija'
-C:\Users\nikol\Desktop\StrukturePodataka\Project6\zadatak.c(100,14): warning C4098: 'IspisInorder': 'void' function returning a value
-C:\Users\nikol\Desktop\StrukturePodataka\Project6\zadatak.c(110,14): warning C4098: 'IspisPreorder': 'void' function returning a value
-C:\Users\nikol\Desktop\StrukturePodataka\Project6\zadatak.c(120,14): warning C4098: 'IspisPostorder': 'void' function returning a value
+C:\Users\nikol\Desktop\StrukturePodataka\Project6\zadatak.c(72,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'pozicija'
+C:\Users\nikol\Desktop\StrukturePodataka\Project6\zadatak.c(72,12): warning C4313: 'printf': '%d' in format string conflicts with argument 2 of type 'pozicija'
+C:\Users\nikol\Desktop\StrukturePodataka\Project6\zadatak.c(102,14): warning C4098: 'IspisInorder': 'void' function returning a value
+C:\Users\nikol\Desktop\StrukturePodataka\Project6\zadatak.c(112,14): warning C4098: 'IspisPreorder': 'void' function returning a value
+C:\Users\nikol\Desktop\StrukturePodataka\Project6\zadatak.c(122,14): warning C4098: 'IspisPostorder': 'void' function returning a value
   Project6.vcxproj -> C:\Users\nikol\Desktop\StrukturePodataka\Project6\x64\Debug\Project6.exe
